@@ -1,0 +1,53 @@
+package battleship.graphics.elements.menu;
+
+import battleship.graphics.elements.Element;
+import battleship.graphics.GraphicsController;
+import battleship.utilities.Resources;
+import battleship.graphics.elements.misc.Button;
+import java.awt.*;
+
+public class Footer implements Element {
+  
+  private String[] buttonStrings = {"Play Game", "Help", "Credits", "Quit Game"};
+  private String[] buttonScreens = {"Selection", "Help", "Credits", "Quit"};
+  private int buttonNum = buttonStrings.length;
+  private Button[] menuButton = new Button[buttonNum];
+  private Font buttonFont = new Font("Georgia", Font.BOLD, 24);
+  private Color buttonColour;
+  private Color textColour;
+  
+  public Footer () {
+    
+    for (int i=0; i<buttonNum; i++) {
+      menuButton[i] = new Button(buttonStrings[i], buttonScreens[i]);
+    }
+    
+  }
+  
+  
+  public void draw (Graphics g, int width, int height) {
+    
+    int buttonWidth = width / buttonNum;
+    
+    for (int i=0; i<buttonNum; i++) {
+      
+      menuButton[i].setBounds((buttonWidth * i), (height - 100), buttonWidth, 100);
+      menuButton[i].draw(g, width, height);
+      
+    }
+    
+  }
+  
+  
+  //listens for when the mouse is clicked
+  public void mouseClick() {
+    
+    for (int i=0; i<buttonNum; i++) {
+      
+      menuButton[i].mouseClick();
+      
+    }
+  }
+  
+}
+

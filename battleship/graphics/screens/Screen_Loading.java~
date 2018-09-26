@@ -1,0 +1,15 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.misc.Loading;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Loading extends Screen {
+  
+  //loading screen constructor
+  public Screen_Loading() {
+    elements = new Element[]{new Loading()};
+  }
+  
+}

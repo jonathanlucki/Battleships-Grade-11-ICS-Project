@@ -1,0 +1,17 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.menu.*;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Menu extends Screen {
+  
+  //menu screen constructor
+  public Screen_Menu() {
+    elements = new Element[]{new Art(),
+      new Header(),
+      new Footer()};
+  }
+  
+}

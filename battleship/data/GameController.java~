@@ -1,0 +1,65 @@
+package battleship.data;
+
+import battleship.graphics.GraphicsController;
+import battleship.utilities.Random;
+  
+  
+  public class GameController {
+  
+  
+  
+  public static void updateGame() {
+    
+    if (GraphicsController.gameActive()) {
+      if (!GameData.allShipsPlaced(true)) {
+        switch (GameData.shipsPlaced(true)) {
+          case 0: setStatus("Ahoy Admiral. Please click a spot on the grid to deploy your aircraft carrier.");
+          break;
+          case 1: setStatus("Excellent Sir! Now please click a spot on the grid to deploy your battleship.");
+          break;
+          case 2: setStatus("Excellent choice! Next deploy your cruiser by clicking a spot on the grid once again.");
+          break;
+          case 3: setStatus("Genius location Sir! Now click a pot on the grid to deploy your patrol boat.");
+          break;
+          case 4: setStatus("Almost done sir! Finally we need to deploy our submarine. Click a spot on the grid to do so.");
+          break;
+          default: battleship.utilities.Dialogs.criticalError("GameData.shipsPlaced() has an illegal value.");
+          break;
+        }
+      } else if (GameData.playerSelecting) {
+        GameData.playerSelecting = false;
+        GraphicsController.setScreen("Game");
+      } else if (!GameData.playerTurn) {
+        setStatus("The enemy is currently taking their shot sir.");
+      } else {
+       setStatus("Sir, please click a location on the enemy grid to take a shot.");
+      }
+    
+    
+    if (!GameData.playerTurn) {
+     cpuTurn(); 
+    }
+    
+    
+    }
+  }
+  
+  private static void cpuTurn() {
+    while (true) {
+      int x = Random.randomInt(0, 9);
+      int y = Random.randomInt(0, 9);
+      if (!GameData.playerGridCellData[x][y].firedUpon()) {
+        GameData.fire(x, y, true);
+        break;
+      }
+    }
+  }
+  
+  
+  //try to keep 50 char or below
+  public static void setStatus (String status) {
+    GameData.statusMessage = status;
+  }
+  
+  
+}

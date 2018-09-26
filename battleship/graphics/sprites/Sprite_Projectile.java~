@@ -1,0 +1,106 @@
+package battleship.graphics.sprites;
+
+//imports necessary libraries
+import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+
+
+/**
+ * Assignment: Polymorphic Transformations Assignment
+ * <p>
+ * Program Description: This program creates a rotating square that moves from the top left to the bottom right corners
+ * <p>
+ * Class Description: This class contains the rectangle sprite code; it is a child class of the sprite class
+ * @author Jonathan Lucki
+ * @version Last modified on 24/04/2016
+ */ 
+
+
+public class Sprite_Projectile extends Sprite {
+  
+  /**
+   * Reference to the rectangle object containing the rectangles information
+   */
+  Rectangle rectangle;
+  
+  
+  /**
+   * Constructs a new rectangle sprite
+   * @param upperLeftStartPoint the starting point of the upper left corner of the rectangle
+   * @param rectangleWidth the width of the rectangle
+   * @param rectangleHieght the height of the rectangle
+   * @param rectangleColour the colour of the rectangle
+   */
+  public Sprite_Progectile(Point upperLeftStartPoint, int rectangleWidth, int rectangleHieght, Color rectangleColour) {
+    
+    //sets colour
+    colour = rectangleColour;
+    
+    //sets centre point
+    centrePoint = new Point(upperLeftStartPoint.x + (rectangleWidth / 2), 
+                            upperLeftStartPoint.y + (rectangleHieght / 2));
+    
+    //sets height/width variables
+    spriteWidth = rectangleWidth;
+    spriteHeight = rectangleHieght;
+    
+    //constructs rectangle object
+    rectangle = new Rectangle(upperLeftStartPoint.x, upperLeftStartPoint.y, rectangleWidth, rectangleHieght);
+    
+  }
+  
+  
+  /**
+   * Draws the rectangle with its given transformations (if any)
+   * @param g the Graphics object to draw the rectangle too
+   */
+  public void draw(Graphics g) {
+    
+    //constructs graphics 2D object
+    Graphics2D g2d = (Graphics2D)g;
+    
+    //sets colour for rectangle
+    g2d.setColor(colour);
+    
+    //updates the centre points
+    updateSpriteInfo();
+    
+    //updates sprite based on transformations it has been given
+    update(g2d);
+    
+    //draws rectangle
+    g2d.fill(rectangle);
+    
+    //disposes of transformations in the Graphics2D object
+    g2d.dispose();
+    
+  }
+  
+  
+  /**
+   * Updates the centreX, centreY, spriteWidth, & spriteHeight variables
+   * Will also update the variables if any scaling ventors have been added to the sprite
+   */
+  private void updateSpriteInfo() {
+    double currentScaled = 1;
+    double speed = 1;
+    double direction = 1;
+    for (int i = 0; i < vectorArray.size(); i ++) {
+     /* if (vectorArray.get(i) instanceof Vector_Scale) {
+        currentScaled = vectorArray.get(i).currentMagnitude;
+        speed = vectorArray.get(i).speed;
+        direction =vectorArray.get(i).direction;
+      }
+      double scaleFactor = (1 + direction * (currentScaled * (speed / 100)));
+      spriteWidth = (int)(rectangle.getWidth() * scaleFactor);
+      spriteHeight = (int)(rectangle.getHeight() * scaleFactor);
+      int centreX = (int)rectangle.getX() + (int)(spriteWidth / 2);
+      int centreY = (int)rectangle.getY() + (int)(spriteHeight / 2);
+      centrePoint.setLocation(centreX, centreY);*/
+    }
+  }  
+  
+}

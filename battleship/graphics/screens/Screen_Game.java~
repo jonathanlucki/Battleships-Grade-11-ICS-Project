@@ -1,0 +1,19 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.game.*;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Game extends Screen {
+  
+  //game screen constructor
+  public Screen_Game() {
+    elements = new Element[]{new Background(),
+    new Header(),
+    new Footer(),
+    new Grid (true, "Your Fleet"),
+    new Grid (false, "Enemy Fleet")};
+  }
+  
+}

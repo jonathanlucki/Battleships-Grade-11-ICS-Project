@@ -1,0 +1,18 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.game.*;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Selection extends Screen {
+  
+  //selection screen constructor
+  public Screen_Selection() {
+    elements = new Element[]{new Background(),
+    new Header(),
+    new Footer(),
+      new Grid (true, true, "Fleet Placement")};
+  }
+  
+}

@@ -1,0 +1,15 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.misc.Help;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Help extends Screen {
+  
+  //credits screen constructor
+  public Screen_Help() {
+    elements = new Element[]{new Help()};
+  }
+  
+}

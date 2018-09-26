@@ -1,0 +1,15 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.game.*;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Defeat extends Screen {
+  
+  //failure screen constructor
+  public Screen_Defeat() {
+    elements = new Element[]{};
+  }
+  
+}

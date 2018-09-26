@@ -1,0 +1,34 @@
+  package battleship.data;
+  
+  
+  public class CellData {
+    
+    public boolean hasShip;
+    public boolean firedUpon;
+    
+    public boolean hasShip() {
+      if (hasShip) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+    public boolean firedUpon() {
+      if (firedUpon) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+    public void setHasShip(boolean hasShip) {
+     this.hasShip = hasShip; 
+    }
+    
+    public void setFiredUpon(boolean firedUpon) {
+     this.firedUpon = firedUpon; 
+    }
+    
+    
+  }

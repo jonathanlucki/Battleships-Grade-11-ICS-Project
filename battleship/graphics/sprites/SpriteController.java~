@@ -1,0 +1,74 @@
+package battleship.graphics.sprites;
+
+//imports necessary libraries
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.Timer;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.awt.Point;
+
+
+/**
+ * Assignment: Polymorphic Transformations Assignment
+ * <p>
+ * Program Description: This program creates a rotating square that moves from the top left to the bottom right corners
+ * <p>
+ * Class Description: This is the main class that controls the main functions of the program
+ * @author Jonathan Lucki
+ * @version Last modified on 24/04/2016
+ */ 
+
+
+public class SpriteController extends JPanel {
+  
+  /**
+   * An array (ArrayList) of sprite objects
+   */
+  private ArrayList<Sprite> spriteArray = new ArrayList<Sprite>();
+  
+  /**
+   * Graphics object which is used to provide individual transformtions to sprites
+   */
+  private Graphics g1;
+  
+  
+  /**
+   * Constructs the class, creates sprite objects, adds transformations to them, and invokes the frame updater
+   */
+  public SpriteController() {
+    
+    //adds sprite objects to the sprite array
+    spriteArray.add(new Sprite_Rectangle(new Point(0, 0), 50, 50, Color.black));
+    
+    //adds vectors to rectangle sprite
+    spriteArray.get(0).addTransform(new Vector_Translate(45, 0.2, -1));
+    spriteArray.get(0).addTransform(new Vector_Rotate(1, 0.2, -1));
+    
+  }
+  
+  
+  /**
+   * Paint component for the frame
+   * @param g the Graphics object drawing to the frame
+   */
+  public void draw(Graphics g, int width, int height){
+    
+    //background
+    g.setColor(Color.WHITE);
+    g.fillRect(0, 0, width, height);
+    
+    //draws all sprites in the sprite array
+    for (int i=0; i < spriteArray.size(); i++) {
+      g1 = g.create();
+      spriteArray.get(i).draw(g1);
+      g1.dispose();
+    }
+    
+  }
+  
+  
+}

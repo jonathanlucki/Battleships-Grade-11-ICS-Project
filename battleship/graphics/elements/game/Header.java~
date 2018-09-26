@@ -1,0 +1,23 @@
+package battleship.graphics.elements.game;
+
+//imports necessary libraries
+import battleship.graphics.elements.Element;
+import battleship.utilities.Resources;
+import java.awt.*;
+
+
+public class Header implements Element {
+  
+  public void draw (Graphics g, int width, int height) {
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, 100); 
+    g.drawImage(Resources.menuLogo, 10, 15, 380, 70, null);
+    
+    g.setColor(Color.darkGray);
+    g.fillRect(395, 0, 10, 100);
+    g.fillRect(0, 100, width, 10);
+  }
+  
+  public void mouseClick() {}
+  
+}

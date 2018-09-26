@@ -1,0 +1,47 @@
+package battleship.utilities;
+
+
+//imports necessary libraries
+import java.io.*;
+import java.net.URL;
+import javax.sound.sampled.*;
+
+
+public class Sound {
+  
+  /**
+   * Array of soundEffect objects:
+   * 0 - eee
+   */
+  public static Sound[] effect = {new Sound("battleship/resources/music/menu.mp3")};
+  
+  private Clip clip; 
+  
+  public Sound (String filePath) {
+    try {
+      
+      //loads the music
+      URL url = this.getClass().getClassLoader().getResource(filePath);
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+      clip = AudioSystem.getClip();
+      clip.open(audioIn);
+      
+      //catches exceptions
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (LineUnavailableException e) {
+      e.printStackTrace();
+    }
+    
+  }
+  
+  public void play() {
+    clip.start();
+  }
+  
+}
+
+
+

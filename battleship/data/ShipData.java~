@@ -1,0 +1,42 @@
+package battleship.data;
+
+
+public class ShipData {
+  
+  public int cellX;
+  public int cellY;
+  
+  public boolean vertical;
+  
+  public ShipData () {
+   cellX = -1;
+   cellY = -1;
+   vertical = true;
+  }
+  
+  public void setLocation (int x, int y) {
+    cellX = x;
+    cellY = y;
+  }
+  
+  public void setVertical (boolean isVertical) {
+   vertical = isVertical; 
+  }
+  
+  public int getX() {
+   return cellX;
+  }
+  
+  public int getY() {
+   return cellY; 
+  }
+  
+  public boolean isVertical() {
+    if (vertical) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+}

@@ -1,0 +1,65 @@
+package battleship.graphics.elements.game;
+
+//imports necessary libraries
+import battleship.graphics.elements.Element;
+import battleship.utilities.Resources;
+import battleship.graphics.GraphicsController;
+import java.awt.*;
+
+
+public class Grid_Cell implements Element {
+  
+  private Color cellColour = new Color(65, 105, 225);
+  private Rectangle cellRect = new Rectangle();
+  
+  public void setBounds (int x, int y, int width, int height) {
+    cellRect.setBounds(x, y, width, height);
+  }
+  
+  public void draw (Graphics g, int width, int height) {
+    
+    Graphics2D g2d = (Graphics2D)g; //constructs graphics 2D object
+    
+    g2d.setColor(cellColour);
+    g2d.fill(cellRect);
+    
+    g2d.setColor(Color.BLACK);
+    g2d.draw(cellRect);
+    
+  }
+  
+  public void drawTarget (Graphics g, int width, int height) {
+    g.drawImage(Resources.gameTarget, getX(), getY(), getLength(), getLength(), null);
+  }
+  
+  public void drawHit (Graphics g, int width, int height) {
+    g.drawImage(Resources.gameHit, getX(), getY(), getLength(), getLength(), null);
+  }
+  
+  public void drawMiss (Graphics g, int width, int height) {
+    g.drawImage(Resources.gameMiss, getX(), getY(), getLength(), getLength(), null);
+  }
+  
+  public int getX() {
+   return (int)cellRect.getX(); 
+  }
+  
+  public int getY() {
+   return (int)cellRect.getY(); 
+  }
+  
+  public int getLength() {
+   return (int)cellRect.getWidth(); 
+  }
+  
+  public boolean contains(int mouseX, int mouseY) {
+    if (cellRect.contains(mouseX, mouseY)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public void mouseClick() {}
+  
+}

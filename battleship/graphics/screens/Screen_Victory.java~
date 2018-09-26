@@ -1,0 +1,15 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.game.*;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Victory extends Screen {
+  
+  //victory screen constructor
+  public Screen_Victory() {
+    elements = new Element[]{};
+  }
+  
+}

@@ -1,0 +1,300 @@
+package battleship.data;
+
+import battleship.utilities.Dialogs;
+
+
+public class GameData {
+  
+  public static String statusMessage;//50 char recommended limit
+  
+  public static final int gridCellSize = 10;
+  
+  public static boolean playerSelecting = true;
+  
+  public static boolean playerTurn = true;
+  
+  public static CellData[][] playerGridCellData = new CellData[gridCellSize][gridCellSize];
+  public static CellData[][] cpuGridCellData = new CellData[gridCellSize][gridCellSize];
+  
+  public static ShipData playerCarrier;
+  public static ShipData playerBattleship;
+  public static ShipData playerCruiser;
+  public static ShipData playerPatrolBoat;
+  public static ShipData playerSubmarine;
+  
+  public static ShipData cpuCarrier;
+  public static ShipData cpuBattleship;
+  public static ShipData cpuCruiser;
+  public static ShipData cpuPatrolBoat;
+  public static ShipData cpuSubmarine;
+  
+  
+  public static boolean verticalPlacement = true;
+  
+  
+  public static void setUpGameData() {
+    resetGameData(); 
+  }
+  
+  public static void resetGameData() {
+    
+    statusMessage = "";
+    
+    for (int x = 0; x < playerGridCellData.length; x++) {
+      for (int y = 0; y < playerGridCellData.length; y++) {
+        playerGridCellData[x][y] = new CellData();
+      }
+    }
+    
+    for (int x = 0; x < cpuGridCellData.length; x++) {
+      for (int y = 0; y < cpuGridCellData.length; y++) {
+        cpuGridCellData[x][y] = new CellData();
+      }
+    }
+    
+    playerSelecting = true;
+    
+    playerTurn = true;
+    
+    playerCarrier = new ShipData();
+    playerBattleship = new ShipData();
+    playerCruiser = new ShipData();
+    playerPatrolBoat = new ShipData();
+    playerSubmarine = new ShipData();
+    
+    cpuCarrier = new ShipData();
+    cpuBattleship = new ShipData();
+    cpuCruiser = new ShipData();
+    cpuPatrolBoat = new ShipData();
+    cpuSubmarine = new ShipData();
+    
+    verticalPlacement = true;
+    
+  }
+  
+  public static ShipData getShipData(String ship, boolean playerShip) {
+    
+    switch (ship) {
+      case "Carrier":
+        if (playerShip) {
+        return playerCarrier;
+      } else {
+        return cpuCarrier;
+      }
+      case "Battleship":
+        if (playerShip) {
+        return playerBattleship;
+      } else {
+        return cpuBattleship;
+      }
+      case "Cruiser":
+        if (playerShip) {
+        return playerCruiser;
+      } else {
+        return cpuCruiser;
+      }
+      case "PatrolBoat":
+        if (playerShip) {
+        return playerPatrolBoat;
+      } else {
+        return cpuPatrolBoat;
+      }
+      case "Submarine":
+        if (playerShip) {
+        return playerSubmarine;
+      } else {
+        return cpuSubmarine;
+      }
+      default:
+        Dialogs.criticalError("Critical Error: Invalid Ship inputted to method GameData.getShipData()");
+        throw new IllegalArgumentException("Invalid Ship inputted to method GameData.getShipData()");
+    }
+    
+  }
+  
+  public static boolean shipPlaced(String ship, boolean playerShip) {
+    
+    ShipData shipData = getShipData(ship, playerShip);
+    
+    if (shipData.getX() != -1 && shipData.getY() != -1) {
+      return true; 
+    } else {
+      return false; 
+    }
+    
+  }
+  
+  
+  
+  public static int shipsPlaced(boolean playerShips) {
+    if (shipPlaced("Carrier", playerShips) && shipPlaced("Battleship", playerShips) && shipPlaced("Cruiser", playerShips) && shipPlaced("PatrolBoat", playerShips) && shipPlaced("Submarine", playerShips)) {
+      return 5;
+    } else if (shipPlaced("Carrier", playerShips) && shipPlaced("Battleship", playerShips) && shipPlaced("Cruiser", playerShips) && shipPlaced("PatrolBoat", playerShips)) {
+      return 4;
+    } else if (shipPlaced("Carrier", playerShips) && shipPlaced("Battleship", playerShips) && shipPlaced("Cruiser", playerShips)) {
+      return 3;
+    } else if (shipPlaced("Carrier", playerShips) && shipPlaced("Battleship", playerShips)) {
+      return 2;
+    } else if (shipPlaced("Carrier", playerShips)) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  
+  public static boolean allShipsPlaced(boolean playerShips) {
+    if (shipsPlaced(playerShips) == 5) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public static boolean acceptableBounds (String ship, int x, int y, boolean playerShip) {
+    
+    int shipSize = shipSize(ship);
+    
+    CellData[][] gridCellData = new CellData[gridCellSize][gridCellSize];
+    
+    if (playerShip) {
+      gridCellData = new CellData[playerGridCellData.length][playerGridCellData.length];
+      for (int cellX = 0; cellX < playerGridCellData.length; cellX++) {
+        for (int cellY = 0; cellY < playerGridCellData.length; cellY++) {
+          gridCellData[cellX][cellY] = playerGridCellData[cellX][cellY];
+        }
+      }
+    } else {
+      gridCellData = new CellData[cpuGridCellData.length][cpuGridCellData.length];
+      for (int cellX = 0; cellX < cpuGridCellData.length; cellX++) {
+        for (int cellY = 0; cellY < cpuGridCellData.length; cellY++) {
+          gridCellData[cellX][cellY] = cpuGridCellData[cellX][cellY];
+        }
+      }
+    }
+    
+    if (verticalPlacement) {
+      if (y + (shipSize) <= gridCellSize) {
+        for (int i = y; i < y + (shipSize); i++) {
+          if (gridCellData[x][i].hasShip()) {
+            return false; 
+          }
+        }
+      } else {
+        return false;
+      }
+    } else {
+      if (x + (shipSize) <= gridCellSize) {
+        for (int i = x; i < x + (shipSize); i++) {
+          if (gridCellData[i][y].hasShip()) {
+            return false; 
+          }
+        }
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  public static void changeRotation() {
+    if (verticalPlacement) {
+      verticalPlacement = false;
+    } else {
+      verticalPlacement = true; 
+    }
+  }
+  
+  public static void changeTurn() {
+    if (playerTurn) {
+      playerTurn = false;
+    } else {
+      playerTurn = true; 
+    }
+  }
+  
+  
+  public static int shipSize(String ship) {
+    
+    switch (ship) {
+      case "Carrier":
+        return 5;
+      case "Battleship":
+        return 4;
+      case "Cruiser":
+        return 3;
+      case "PatrolBoat":
+        return 2;
+      case "Submarine":
+        return 3;
+      default:
+        Dialogs.criticalError("Critical Error: Invalid Ship inputted to method GameData.shipSize()");
+        throw new IllegalArgumentException("Invalid Ship inputted to method GameData.shipSize");
+    }
+    
+  }
+  
+  public static String activeShipSelection(boolean playerShips) {
+    
+    switch (shipsPlaced(playerShips)) {
+      case 0: return "Carrier";
+      case 1: return "Battleship";
+      case 2: return "Cruiser";
+      case 3: return "PatrolBoat";
+      case 4: return "Submarine";
+      default: return "";
+    }
+    
+  }
+  
+  
+  public static void placeShip(String ship, int x, int y, boolean playerShip) {
+    
+    ShipData shipData = getShipData(ship, playerShip);
+    
+    if (verticalPlacement) {
+      shipData.setVertical(true);
+    } else {
+      shipData.setVertical(false);
+    }
+    
+    shipData.setLocation(x, y);
+    
+    
+    int shipSize = shipSize(ship);
+    
+    
+    if (verticalPlacement) {
+      for (int i = y; i < y + (shipSize); i++) {
+        if (playerShip) {
+          playerGridCellData[x][i].setHasShip(true);
+        } else {
+          cpuGridCellData[x][i].setHasShip(true);
+        }
+      }
+    } else {
+      for (int i = x; i < x + (shipSize); i++) {
+        if (playerShip) {
+          playerGridCellData[i][y].setHasShip(true);
+        } else {
+          cpuGridCellData[i][y].setHasShip(true);
+        }
+      }
+    }
+    
+  }
+  
+  public static void fire(int x, int y, boolean playerBoard) {
+    
+    if (playerBoard) {
+      playerGridCellData[x][y].setFiredUpon(true);
+      changeTurn();
+    } else {
+      cpuGridCellData[x][y].setFiredUpon(true);
+      changeTurn();
+    }
+    
+  }
+  
+  
+}
+

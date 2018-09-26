@@ -1,0 +1,72 @@
+package battleship.utilities;
+
+
+//imports necessary libraries
+import java.io.*;
+import java.net.URL;
+import javax.sound.sampled.*;
+
+
+public class Music {
+  
+  /**
+   * Array of music objects:
+   * 0 - menu music
+   * 1 - selection music
+   */
+  public static Music[] music = {new Music("battleship/resources/music/menu.wav"),
+    new Music("battleship/resources/music/credits.wav"),
+    new Music("battleship/resources/music/selection.wav"),
+    new Music("battleship/resources/music/game.wav"),
+  new Music("battleship/resources/music/victory.wav"),
+  new Music("battleship/resources/music/defeat.wav")};
+  
+  private Clip clip;
+  
+  
+  public static void stopMusic() {
+    for (int i = 0; i < music.length; i++) {
+      music[i].stop();
+    }
+  }
+  
+  
+  public Music (String filePath) {
+    try {
+      
+      //loads the music
+      URL url = this.getClass().getClassLoader().getResource(filePath);
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+      clip = AudioSystem.getClip();
+      clip.open(audioIn);
+      
+      //catches exceptions
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (LineUnavailableException e) {
+      e.printStackTrace();
+    }
+    
+  }
+  
+  public void start() {
+    if (!isActive()) {
+      Music.stopMusic();
+      clip.loop(Clip.LOOP_CONTINUOUSLY); 
+    }
+  }
+  
+  public void stop() {
+    clip.stop(); 
+  }
+  
+  public boolean isActive() {
+    return clip.isActive(); 
+  }
+  
+  }
+
+
+

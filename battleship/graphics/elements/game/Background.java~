@@ -1,0 +1,28 @@
+package battleship.graphics.elements.game;
+
+//imports necessary libraries
+import battleship.graphics.elements.Element;
+import battleship.utilities.Resources;
+import java.awt.*;
+
+
+public class Background implements Element {
+  
+  private Color backgroundColour = new Color(10, 35, 70);
+  
+  public void draw (Graphics g, int width, int height) {
+    
+    /*for (int h=0; h < height; h++) {
+      for (int w=0; w < width; w++) {
+        g.drawImage(Resources.gameBackground, (w * 64), (h * 64), 64, 64, null);
+      }
+    }*/
+    
+    g.setColor(backgroundColour);
+    g.fillRect(0, 0, width, height);
+    
+  }
+  
+  public void mouseClick() {}
+  
+}

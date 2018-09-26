@@ -1,0 +1,21 @@
+package battleship.graphics.elements.misc;
+
+//imports necessary libraries
+import battleship.graphics.elements.Element;
+import battleship.utilities.Resources;
+import battleship.graphics.GraphicsController;
+import java.awt.*;
+
+
+public class Credits implements Element {
+
+  public void draw (Graphics g, int width, int height) {
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+  }
+  
+  public void mouseClick() {
+  GraphicsController.setScreen("Menu");
+  }
+  
+}

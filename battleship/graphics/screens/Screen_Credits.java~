@@ -1,0 +1,15 @@
+package battleship.graphics.screens;
+
+//imports necessary libraries
+import battleship.graphics.elements.misc.Credits;
+import battleship.graphics.elements.Element;
+
+
+public class Screen_Credits extends Screen {
+  
+  //credits screen constructor
+  public Screen_Credits() {
+    elements = new Element[]{new Credits()};
+  }
+  
+}
